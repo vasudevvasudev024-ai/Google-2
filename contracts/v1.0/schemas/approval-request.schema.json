@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nexus-apex.contracts/v1.0/approval-request.schema.json",
+  "title": "ApprovalRequest",
+  "description": "NEXUS APEX Core Contract System (NACS) v1.0 ApprovalRequest contract enforcing payload-bound human authorization for high-impact actions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "approval_id",
+    "workspace_id",
+    "task_id",
+    "action_type",
+    "action_payload_hash",
+    "risk_level",
+    "status",
+    "requested_at",
+    "expires_at",
+    "decision"
+  ],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "approval_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "public_publishing",
+        "external_message",
+        "purchase",
+        "payment",
+        "destructive_operation",
+        "sensitive_account_modification",
+        "budget_overrun"
+      ]
+    },
+    "action_payload_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["medium", "high", "critical"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "approved", "rejected", "expired", "revoked"]
+    },
+    "requested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decision": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["decision_source", "decided_by", "decided_at", "reason"],
+      "properties": {
+        "decision_source": {
+          "type": "string",
+          "const": "human"
+        },
+        "decided_by": {
+          "type": "string",
+          "minLength": 3,
+          "not": {
+            "pattern": "^(agent|bot|auto|system)_"
+          }
+        },
+        "decided_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      }
+    }
+  }
+}

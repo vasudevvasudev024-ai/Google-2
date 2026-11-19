@@ -1,0 +1,27 @@
+{
+  "contract_version": "1.0",
+  "workflow_id": "wf_bad_missing_ws",
+  "project_id": "proj_hindi_fantasy_01",
+  "production_track": "creative",
+  "goal": "Create a five-minute Hindi fantasy video without workspace isolation",
+  "constraints": {
+    "language": "hi",
+    "duration_seconds": 300
+  },
+  "requested_outputs": ["screenplay", "video"],
+  "autonomy_policy": {
+    "mode": "hybrid",
+    "unknown_tools": "deny",
+    "public_publishing": "approval_required",
+    "external_messages": "approval_required",
+    "purchases": "approval_required",
+    "payments": "approval_required",
+    "destructive_operations": "approval_required",
+    "sensitive_account_modifications": "approval_required"
+  },
+  "budget": {
+    "currency": "INR",
+    "max_spend": 500,
+    "require_approval_over_limit": true
+  }
+}

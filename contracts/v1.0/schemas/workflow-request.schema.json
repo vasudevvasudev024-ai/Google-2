@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nexus-apex.contracts/v1.0/workflow-request.schema.json",
+  "title": "WorkflowRequest",
+  "description": "NEXUS APEX Core Contract System (NACS) v1.0 WorkflowRequest contract defining production track, goal, constraints, expected outputs, autonomy policy, and budget.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "workflow_id",
+    "workspace_id",
+    "project_id",
+    "production_track",
+    "goal",
+    "constraints",
+    "requested_outputs",
+    "autonomy_policy",
+    "budget"
+  ],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "workflow_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "production_track": {
+      "type": "string",
+      "enum": ["creative", "automation", "mixed"]
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 2000
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": {
+        "type": ["string", "number", "boolean", "array"]
+      },
+      "properties": {
+        "language": { "type": "string", "minLength": 2, "maxLength": 16 },
+        "duration_seconds": { "type": "integer", "minimum": 1 },
+        "visual_style": { "type": "string", "minLength": 1 },
+        "aspect_ratio": { "type": "string", "pattern": "^[0-9]+:[0-9]+$" },
+        "target_runtime": { "type": "string", "minLength": 1 },
+        "repository_scope": { "type": "string", "minLength": 1 },
+        "compliance_standard": { "type": "string", "minLength": 1 }
+      }
+    },
+    "requested_outputs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "research",
+          "screenplay",
+          "storyboard",
+          "images",
+          "video",
+          "audio",
+          "editing",
+          "qa_report",
+          "final_render",
+          "published_release",
+          "code",
+          "website",
+          "documents",
+          "workflow_automation"
+        ]
+      }
+    },
+    "autonomy_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "unknown_tools",
+        "public_publishing",
+        "external_messages",
+        "purchases",
+        "payments",
+        "destructive_operations",
+        "sensitive_account_modifications"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["hybrid", "supervised"]
+        },
+        "unknown_tools": {
+          "type": "string",
+          "const": "deny"
+        },
+        "public_publishing": {
+          "type": "string",
+          "enum": ["approval_required", "deny"]
+        },
+        "external_messages": {
+          "type": "string",
+          "enum": ["approval_required", "deny"]
+        },
+        "purchases": {
+          "type": "string",
+          "enum": ["approval_required", "deny"]
+        },
+        "payments": {
+          "type": "string",
+          "enum": ["approval_required", "deny"]
+        },
+        "destructive_operations": {
+          "type": "string",
+          "enum": ["approval_required", "deny"]
+        },
+        "sensitive_account_modifications": {
+          "type": "string",
+          "enum": ["approval_required", "deny"]
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["currency", "max_spend", "require_approval_over_limit"],
+      "properties": {
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "max_spend": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "require_approval_over_limit": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

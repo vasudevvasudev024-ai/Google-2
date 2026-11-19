@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nexus-apex.contracts/v1.0/artifact-manifest.schema.json",
+  "title": "ArtifactManifest",
+  "description": "NEXUS APEX Core Contract System (NACS) v1.0 ArtifactManifest contract describing generated outputs, storage metadata, checksums, provenance, review status, and tenant visibility.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "artifact_id",
+    "workspace_id",
+    "project_id",
+    "task_id",
+    "artifact_type",
+    "storage_uri",
+    "mime_type",
+    "checksum",
+    "version",
+    "provenance",
+    "review_status",
+    "visibility"
+  ],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "research",
+        "screenplay",
+        "storyboard",
+        "image",
+        "video",
+        "audio",
+        "edited_cut",
+        "qa_report",
+        "final_render",
+        "code",
+        "website_bundle",
+        "document",
+        "workflow_spec"
+      ]
+    },
+    "storage_uri": {
+      "type": "string",
+      "minLength": 5,
+      "pattern": "^(nacs|obj)://[a-zA-Z0-9._/-]+$"
+    },
+    "mime_type": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9.+-]+/[a-zA-Z0-9.+-]+$"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agent_id", "tool_or_model", "input_hash", "created_at"],
+      "properties": {
+        "agent_id": { "type": "string", "minLength": 3 },
+        "tool_or_model": { "type": "string", "minLength": 2 },
+        "input_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "parent_artifact_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3 }
+        }
+      }
+    },
+    "review_status": {
+      "type": "string",
+      "enum": ["pending_review", "approved", "changes_requested", "rejected"]
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["private", "workspace", "public_approved"]
+    }
+  }
+}

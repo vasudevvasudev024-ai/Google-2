@@ -1,0 +1,31 @@
+{
+  "contract_version": "1.0",
+  "task_id": "task_creative_screenplay_01",
+  "workflow_id": "wf_nacs_creative_001",
+  "workspace_id": "ws_studio_alpha",
+  "project_id": "proj_hindi_fantasy_01",
+  "agent_id": "agent_creative_writer_01",
+  "capability": "creative.screenplay",
+  "input": {
+    "language": "hi",
+    "duration_seconds": 300,
+    "visual_style": "cinematic fantasy"
+  },
+  "expected_output": {
+    "artifact_type": "screenplay",
+    "format": "text/markdown"
+  },
+  "dependencies": [],
+  "idempotency_key": "idem_ws_studio_alpha_wf001_screenplay_v1",
+  "priority": 10,
+  "attempt": 1,
+  "max_attempts": 3,
+  "risk_level": "low",
+  "action_type": "internal_compute",
+  "timestamps": {
+    "created_at": "2026-11-18T08:00:00Z",
+    "scheduled_at": "2026-11-18T08:00:05Z",
+    "updated_at": "2026-11-18T08:00:05Z",
+    "deadline_at": "2026-11-18T09:00:00Z"
+  }
+}

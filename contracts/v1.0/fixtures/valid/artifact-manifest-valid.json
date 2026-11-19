@@ -1,0 +1,20 @@
+{
+  "contract_version": "1.0",
+  "artifact_id": "art_screenplay_001",
+  "workspace_id": "ws_studio_alpha",
+  "project_id": "proj_hindi_fantasy_01",
+  "task_id": "task_creative_screenplay_01",
+  "artifact_type": "screenplay",
+  "storage_uri": "nacs://ws_studio_alpha/proj_hindi_fantasy_01/screenplay_v1.md",
+  "mime_type": "text/markdown",
+  "checksum": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "version": 1,
+  "provenance": {
+    "agent_id": "agent_creative_writer_01",
+    "tool_or_model": "creative-screenplay-adapter",
+    "input_hash": "sha256:8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4",
+    "created_at": "2026-11-18T08:05:00Z"
+  },
+  "review_status": "approved",
+  "visibility": "workspace"
+}

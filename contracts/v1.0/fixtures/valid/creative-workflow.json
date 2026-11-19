@@ -1,0 +1,41 @@
+{
+  "contract_version": "1.0",
+  "workflow_id": "wf_nacs_creative_001",
+  "workspace_id": "ws_studio_alpha",
+  "project_id": "proj_hindi_fantasy_01",
+  "production_track": "creative",
+  "goal": "Produce a five-minute Hindi fantasy short film with screenplay, storyboard, media, QA, and human-approved release.",
+  "constraints": {
+    "language": "hi",
+    "duration_seconds": 300,
+    "visual_style": "cinematic fantasy",
+    "aspect_ratio": "16:9"
+  },
+  "requested_outputs": [
+    "research",
+    "screenplay",
+    "storyboard",
+    "images",
+    "video",
+    "audio",
+    "editing",
+    "qa_report",
+    "final_render",
+    "published_release"
+  ],
+  "autonomy_policy": {
+    "mode": "hybrid",
+    "unknown_tools": "deny",
+    "public_publishing": "approval_required",
+    "external_messages": "approval_required",
+    "purchases": "approval_required",
+    "payments": "approval_required",
+    "destructive_operations": "approval_required",
+    "sensitive_account_modifications": "approval_required"
+  },
+  "budget": {
+    "currency": "INR",
+    "max_spend": 500,
+    "require_approval_over_limit": true
+  }
+}

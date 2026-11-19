@@ -1,0 +1,21 @@
+{
+  "contract_version": "1.0",
+  "task_id": "task_creative_screenplay_01",
+  "workspace_id": "ws_studio_alpha",
+  "status": "succeeded",
+  "summary": "Generated 5-minute Hindi fantasy screenplay across 14 scenes.",
+  "structured_output": {
+    "scene_count": 14,
+    "estimated_runtime_seconds": 300,
+    "language": "hi"
+  },
+  "artifact_ids": ["art_screenplay_001"],
+  "usage": {
+    "tokens_input": 1450,
+    "tokens_output": 3280,
+    "compute_seconds": 6.4,
+    "cost_amount": 42.5,
+    "currency": "INR"
+  },
+  "errors": []
+}

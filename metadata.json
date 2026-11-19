@@ -1,0 +1,6 @@
+{
+  "name": "Relay Contract Studio",
+  "description": "Multi-agent workflow, task, result, artifact, and approval contract orchestration studio for creative and automation tracks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

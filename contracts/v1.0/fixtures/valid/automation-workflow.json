@@ -1,0 +1,36 @@
+{
+  "contract_version": "1.0",
+  "workflow_id": "wf_nacs_auto_002",
+  "workspace_id": "ws_eng_beta",
+  "project_id": "proj_portal_migration_02",
+  "production_track": "automation",
+  "goal": "Research API changes, build TypeScript portal modules, generate migration documents, and automate release PR workflow.",
+  "constraints": {
+    "language": "en",
+    "target_runtime": "Node 22 LTS",
+    "repository_scope": "apps/developer-portal",
+    "compliance_standard": "soc2-type2"
+  },
+  "requested_outputs": [
+    "research",
+    "code",
+    "website",
+    "documents",
+    "workflow_automation"
+  ],
+  "autonomy_policy": {
+    "mode": "hybrid",
+    "unknown_tools": "deny",
+    "public_publishing": "approval_required",
+    "external_messages": "approval_required",
+    "purchases": "approval_required",
+    "payments": "approval_required",
+    "destructive_operations": "approval_required",
+    "sensitive_account_modifications": "approval_required"
+  },
+  "budget": {
+    "currency": "USD",
+    "max_spend": 150,
+    "require_approval_over_limit": true
+  }
+}

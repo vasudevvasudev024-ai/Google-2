@@ -1,0 +1,27 @@
+{
+  "contract_version": "1.0",
+  "workflow_id": "wf_bad_track",
+  "workspace_id": "ws_studio_alpha",
+  "project_id": "proj_01",
+  "production_track": "unsupervised_autonomous",
+  "goal": "Attempt workflow with unsupported production track",
+  "constraints": {
+    "language": "en"
+  },
+  "requested_outputs": ["code"],
+  "autonomy_policy": {
+    "mode": "hybrid",
+    "unknown_tools": "deny",
+    "public_publishing": "approval_required",
+    "external_messages": "approval_required",
+    "purchases": "approval_required",
+    "payments": "approval_required",
+    "destructive_operations": "approval_required",
+    "sensitive_account_modifications": "approval_required"
+  },
+  "budget": {
+    "currency": "USD",
+    "max_spend": 100,
+    "require_approval_over_limit": true
+  }
+}

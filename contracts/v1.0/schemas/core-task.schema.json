@@ -1,0 +1,300 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nexus-apex.contracts/v1.0/core-task.schema.json",
+  "title": "NacsCoreTaskContract",
+  "description": "NEXUS APEX Core Contract System (NACS) v1.0 Core Task Contract governing creative and general_automation tasks, capabilities, modalities, privacy, permissions, cost/timeout limits, approval, idempotency, status, and provenance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "contract_version",
+    "production_track",
+    "objective",
+    "structured_inputs",
+    "required_capabilities",
+    "required_modalities",
+    "expected_output",
+    "privacy_constraints",
+    "permission_requirements",
+    "estimated_cost_limit",
+    "execution_timeout_ms",
+    "approval_requirement",
+    "idempotency_key",
+    "execution_status",
+    "provenance"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "contract_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "production_track": {
+      "type": "string",
+      "enum": ["creative", "general_automation"]
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 2000
+    },
+    "structured_inputs": {
+      "type": "object"
+    },
+    "required_capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "research",
+          "screenplay",
+          "storyboard",
+          "image_generation",
+          "video_generation",
+          "audio_generation",
+          "media_editing",
+          "quality_inspection",
+          "code_generation",
+          "web_development",
+          "document_generation",
+          "business_workflow",
+          "structured_reasoning",
+          "external_publish",
+          "external_message",
+          "financial_transaction",
+          "destructive_action"
+        ]
+      }
+    },
+    "required_modalities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["text", "json", "code", "image", "video", "audio", "document"]
+      }
+    },
+    "expected_output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["output_type", "mime_type", "schema_id"],
+      "properties": {
+        "output_type": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 128
+        },
+        "mime_type": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9.+-]+/[a-zA-Z0-9.+-]+$"
+        },
+        "schema_id": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 256
+        },
+        "required_fields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "privacy_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "data_sensitivity",
+        "require_zero_data_retention",
+        "allow_model_training",
+        "pii_present"
+      ],
+      "properties": {
+        "data_sensitivity": {
+          "type": "string",
+          "enum": ["public", "internal", "confidential", "restricted"]
+        },
+        "require_zero_data_retention": {
+          "type": "boolean"
+        },
+        "allow_model_training": {
+          "type": "boolean"
+        },
+        "pii_present": {
+          "type": "boolean"
+        },
+        "allowed_regions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 2 }
+        }
+      }
+    },
+    "permission_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_scopes",
+        "sensitivity_class",
+        "is_irreversible",
+        "is_external_effect"
+      ],
+      "properties": {
+        "required_scopes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "model.invoke",
+              "media.generate",
+              "repo.read",
+              "repo.write",
+              "document.write",
+              "external.publish",
+              "external.message",
+              "billing.spend",
+              "account.modify",
+              "system.destructive"
+            ]
+          }
+        },
+        "sensitivity_class": {
+          "type": "string",
+          "enum": ["standard", "sensitive", "critical"]
+        },
+        "is_irreversible": {
+          "type": "boolean"
+        },
+        "is_external_effect": {
+          "type": "boolean"
+        }
+      }
+    },
+    "estimated_cost_limit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_cost", "currency", "allow_unknown_cost"],
+      "properties": {
+        "max_cost": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "allow_unknown_cost": {
+          "type": "boolean"
+        }
+      }
+    },
+    "execution_timeout_ms": {
+      "type": "integer",
+      "minimum": 100,
+      "maximum": 3600000
+    },
+    "approval_requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "status"],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["not_required", "pending", "approved", "rejected", "expired"]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 500
+        },
+        "approved_by": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 128
+        },
+        "decision_source": {
+          "type": "string",
+          "enum": ["human"]
+        },
+        "approved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_.:-]+$"
+    },
+    "execution_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "validated",
+        "waiting_approval",
+        "routed",
+        "running",
+        "completed",
+        "failed",
+        "rejected",
+        "cancelled"
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["workspace_id", "project_id", "requested_by", "created_at"],
+      "properties": {
+        "workspace_id": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "project_id": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "requested_by": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 128
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "parent_task_id": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 128
+        },
+        "correlation_id": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 128
+        }
+      }
+    }
+  }
+}
